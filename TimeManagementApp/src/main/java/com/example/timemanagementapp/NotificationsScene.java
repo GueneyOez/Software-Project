@@ -1,4 +1,5 @@
 package com.example.timemanagementapp;
+
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,8 +15,8 @@ public class NotificationsScene {
         this.homeScreen = homeScreen;
     }
 
-    public void show() {
-        Label label = new Label("Benachrichtigungen-Szene - Kommt bald...");
+    public void showNotification(String message) {
+        Label label = new Label(message);
         Button backButton = new Button("Go Back");
 
         backButton.setOnAction(e -> homeScreen.goBack());
@@ -29,5 +30,8 @@ public class NotificationsScene {
         stage.setScene(scene);
         stage.setTitle("Benachrichtigungen");
         stage.show();
+    }
+
+    public void show() {
     }
 }

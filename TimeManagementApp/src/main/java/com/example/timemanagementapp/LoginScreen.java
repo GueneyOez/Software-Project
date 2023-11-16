@@ -84,4 +84,8 @@ public class LoginScreen {
         }
         return authenticatedEmployee;
     }
+
+    public void setHomeScreen(HomeScreen homeScreen) {
+
+    }
 }

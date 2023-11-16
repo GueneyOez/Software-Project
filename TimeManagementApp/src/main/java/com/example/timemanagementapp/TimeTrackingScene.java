@@ -1,18 +1,34 @@
 package com.example.timemanagementapp;
+
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class TimeTrackingScene {
     private Stage stage;
     private HomeScreen homeScreen;
-    private long startTime;
+    private List<LocalTime> startTimes;
+    private LocalTime endTime;
+    private Timer timer;
+    private boolean timerRunning;
+    private Label timeLabel; // Label für die Zeiterfassung
 
     public TimeTrackingScene(Stage stage, HomeScreen homeScreen) {
         this.stage = stage;
         this.homeScreen = homeScreen;
+        this.startTimes = new ArrayList<>();
+        this.timer = new Timer();
+        this.timerRunning = false;
     }
 
     public void show() {
@@ -20,22 +36,14 @@ public class TimeTrackingScene {
         Button backButton = new Button("Go Back");
         Button startButton = new Button("Einstempeln");
         Button stopButton = new Button("Ausstempeln");
-        Label timeLabel = new Label(); // Neues Label für die Zeiterfassung
+        timeLabel = new Label(homeScreen.getLastStampedTime()); // Setzen Sie den letzten Stempelzeitpunkt
 
-        startButton.setOnAction(e -> {
-            startTracking();
-            timeLabel.setText("Arbeitszeit gestartet.");
-        });
-
-        stopButton.setOnAction(e -> {
-            stopTracking();
-            timeLabel.setText("Arbeitszeit gestoppt. Gesamtstunden: " + calculateHoursWorked());
-        });
-
+        startButton.setOnAction(e -> startTracking());
+        stopButton.setOnAction(e -> stopTracking());
         backButton.setOnAction(e -> homeScreen.goBack());
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(backButton, label, startButton, stopButton, timeLabel); // Zurück-Button zuerst
+        layout.getChildren().addAll(backButton, label, startButton, stopButton, timeLabel);
 
         Scene scene = new Scene(layout, 400, 300);
         stage.setScene(scene);
@@ -44,20 +52,68 @@ public class TimeTrackingScene {
     }
 
     private void startTracking() {
-        startTime = System.currentTimeMillis();
+        if (!timerRunning) {
+            LocalTime startTime = LocalTime.now();
+            startTimes.add(startTime);
+            timer = new Timer(true);
+
+            // Benachrichtigung nach 1 Minute
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        if (timerRunning) {
+                            NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
+                            notificationsScene.showNotification("Es ist Zeit zum Ausstempeln");
+                        }
+                    });
+                }
+            }, 1 * 60 * 1000); // 1 Minute in Millisekunden
+
+            // Benachrichtigung nach 2 Minuten
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        if (timerRunning) {
+                            NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
+                            notificationsScene.showNotification("Stempeln Sie bitte aus, dies ist Ihre erste und letzte Warnung!");
+                        }
+                    });
+                }
+            }, 2 * 60 * 1000); // 2 Minuten in Millisekunden
+
+            homeScreen.updateLastStampedTime("Eingestempelt um " + formatTime(startTime));
+            timeLabel.setText(homeScreen.getLastStampedTime());
+            timerRunning = true;
+        }
     }
 
     private void stopTracking() {
-        // Arbeitszeit in Stunden umrechnen
-        double hoursWorked = calculateHoursWorked();
-        System.out.println("Arbeitszeit: " + hoursWorked + " Stunden");
+        if (timerRunning) {
+            endTime = LocalTime.now();
+            timer.cancel();
+
+            // Berechne Gesamtzeit
+            Duration totalDuration = Duration.between(startTimes.get(startTimes.size() - 1), endTime);
+            timeLabel.setText(
+                    "Eingestempelt um: " + formatTime(startTimes.get(startTimes.size() - 1)) +
+                            "\nAusgestempelt um: " + formatTime(endTime) +
+                            "\nGearbeitete Stunden: " + formatDuration(totalDuration));
+            homeScreen.updateLastStampedTime(""); // Zurücksetzen des Stempelzeitpunkts
+            timerRunning = false;
+        }
     }
 
-    private double calculateHoursWorked() {
-        long endTime = System.currentTimeMillis();
-        long elapsedTime = endTime - startTime;
+    private String formatTime(LocalTime time) {
+        return String.format("%02d:%02d:%02d", time.getHour(), time.getMinute(), time.getSecond());
+    }
 
-        // Umrechnung in Stunden (1 Stunde = 3600000 Millisekunden)
-        return (double) elapsedTime / 3600000;
+    private String formatDuration(Duration duration) {
+        long hours = duration.toHours();
+        long minutes = duration.toMinutesPart();
+        long seconds = duration.toSecondsPart();
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 }

@@ -1,4 +1,5 @@
 package com.example.timemanagementapp;
+
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -6,9 +7,16 @@ import javafx.scene.layout.HBox;
 
 public class HomeScreen {
     private Stage stage;
+    private TimeTrackingScene timeTrackingScene;
+    private NotificationsScene notificationsScene;
+    private CalendarScene calendarScene;
+    private String lastStampedTime = "";
 
     public HomeScreen(Stage stage) {
         this.stage = stage;
+        this.timeTrackingScene = new TimeTrackingScene(stage, this);
+        this.notificationsScene = new NotificationsScene(stage, this);
+        this.calendarScene = new CalendarScene(stage, this);
     }
 
     public void show() {
@@ -34,22 +42,20 @@ public class HomeScreen {
     }
 
     private void showCalendar() {
-        CalendarScene calendarScene = new CalendarScene(stage, this);
         calendarScene.show();
     }
 
     private void showNotifications() {
-        NotificationsScene notificationsScene = new NotificationsScene(stage, this);
         notificationsScene.show();
     }
 
     private void showTimeTracking() {
-        TimeTrackingScene timeTrackingScene = new TimeTrackingScene(stage, this);
         timeTrackingScene.show();
     }
 
     private void showLogin() {
         LoginScreen loginScreen = new LoginScreen(stage);
+        loginScreen.setHomeScreen(this);
         loginScreen.show();
     }
 
@@ -60,6 +66,20 @@ public class HomeScreen {
 
     // Methode für den "Zurück"-Button
     public void goBack() {
-        show(); // Einfach den HomeScreen erneut anzeigen
+        show();
+    }
+
+    public Scene getCurrentScene() {
+        return stage.getScene();
+    }
+
+    // Optional: Methode zum Abrufen des letzten Stempelzeitpunkts
+    public String getLastStampedTime() {
+        return lastStampedTime;
+    }
+
+    // Methode zum Aktualisieren des letzten Stempelzeitpunkts
+    public void updateLastStampedTime(String stampedTime) {
+        this.lastStampedTime = stampedTime;
     }
 }

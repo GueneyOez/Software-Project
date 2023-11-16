@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="zeitmanagement_login" />
         <module name="TimeManagementApp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="zeitmanagement_login" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
