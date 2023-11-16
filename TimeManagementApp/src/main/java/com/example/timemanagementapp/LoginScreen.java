@@ -9,12 +9,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import org.bson.Document;
+
+import java.util.List;
+
+import static com.example.timemanagementapp.MongoConnection.getEmployeesFromDatabase;
 
 public class LoginScreen {
     private Stage stage;
+    private List<Document> employees;
 
     public LoginScreen(Stage stage) {
         this.stage = stage;
+        this.employees =  getEmployeesFromDatabase();
     }
 
     public void show() {
@@ -48,7 +55,7 @@ public class LoginScreen {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            if (validateLogin(username, password)) {
+            if (validateLogin(username, password) != null) {
                 // Wenn die Anmeldedaten korrekt sind, wechsle zu HomeScreen
                 HomeScreen homeScreen = new HomeScreen(stage);
                 homeScreen.show();
@@ -67,7 +74,14 @@ public class LoginScreen {
     }
 
     // Eine einfache Authentifizierungslogik
-    private boolean validateLogin(String username, String password) {
-        return username.equals("obiwan") && password.equals("kenobi");
+    private Document validateLogin(String username, String password) {
+        Document authenticatedEmployee = null;
+        for (Document employee : employees) {
+            if (employee.getString("Name").equals(username) && employee.getString("Password").equals(password)) {
+                authenticatedEmployee = employee;
+                break; // Exit the loop on successful login
+            }
+        }
+        return authenticatedEmployee;
     }
 }

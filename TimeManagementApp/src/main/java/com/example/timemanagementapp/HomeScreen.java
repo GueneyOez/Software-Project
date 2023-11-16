@@ -15,15 +15,17 @@ public class HomeScreen {
         Button calendarButton = new Button("Kalender");
         Button notificationsButton = new Button("Benachrichtigungen");
         Button timeTrackingButton = new Button("Zeiterfassung");
+        Button addEmployeeButton = new Button("Mitarbeiter hinzufügen");
         Button logoutButton = new Button("Logout");
 
         calendarButton.setOnAction(e -> showCalendar());
         notificationsButton.setOnAction(e -> showNotifications());
         timeTrackingButton.setOnAction(e -> showTimeTracking());
+        addEmployeeButton.setOnAction(e -> showAddEmployee());
         logoutButton.setOnAction(e -> showLogin());
 
         HBox layout = new HBox(10);
-        layout.getChildren().addAll(calendarButton, notificationsButton, timeTrackingButton, logoutButton);
+        layout.getChildren().addAll(calendarButton, notificationsButton, timeTrackingButton, addEmployeeButton,logoutButton);
 
         Scene scene = new Scene(layout, 600, 400);
         stage.setScene(scene);
@@ -49,6 +51,11 @@ public class HomeScreen {
     private void showLogin() {
         LoginScreen loginScreen = new LoginScreen(stage);
         loginScreen.show();
+    }
+
+    private void showAddEmployee() {
+        AddEmployeeScene addEmployeeScene = new AddEmployeeScene(stage, this);
+        addEmployeeScene.show();
     }
 
     // Methode für den "Zurück"-Button
