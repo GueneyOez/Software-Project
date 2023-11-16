@@ -12,10 +12,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         // Hier wird der Login-Bildschirm initialisiert und angezeigt
         LoginScreen loginScreen = new LoginScreen(primaryStage);
-        HomeScreen homeScreen = new HomeScreen(primaryStage);
-
-        loginScreen.setHomeScreen(homeScreen);
-
         loginScreen.show();
     }
 }

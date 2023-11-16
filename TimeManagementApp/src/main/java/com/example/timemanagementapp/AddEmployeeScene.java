@@ -17,7 +17,6 @@ package com.example.timemanagementapp;
 public class AddEmployeeScene {
     private Stage stage;
     private HomeScreen homeScreen;
-    static int mitarbeiterid;
     public AddEmployeeScene(Stage stage, HomeScreen homeScreen) {
         this.stage = stage;
         this.homeScreen = homeScreen;
@@ -43,8 +42,7 @@ public class AddEmployeeScene {
         // Button zum Hinzufügen des Mitarbeiters
         Button addButton = new Button("Mitarbeiter hinzufügen");
         addButton.setOnAction(e -> {
-            insertEmployee(createEmployee(roleComboBox.getValue(), nameField.getText(), passwordField.getText(), mitarbeiterid++));
-            System.out.println("Mitarbeiter hinzugefügt:");
+            insertEmployee(createEmployee(roleComboBox.getValue(), nameField.getText(), passwordField.getText()));
             System.out.println("Rolle: " + roleComboBox.getValue());
             System.out.println("Name: " + nameField.getText());
             System.out.println("Passwort: " + passwordField.getText());

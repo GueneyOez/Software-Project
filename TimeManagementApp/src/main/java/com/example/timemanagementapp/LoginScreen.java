@@ -14,6 +14,7 @@ import org.bson.Document;
 import java.util.List;
 
 import static com.example.timemanagementapp.MongoConnection.getEmployeesFromDatabase;
+import static com.example.timemanagementapp.MongoConnection.user;
 
 public class LoginScreen {
     private Stage stage;
@@ -54,10 +55,11 @@ public class LoginScreen {
         loginButton.setOnAction(e -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
+            Document authenticatedEmployee = validateLogin(username, password);
 
-            if (validateLogin(username, password) != null) {
+            if (authenticatedEmployee != null) {
                 // Wenn die Anmeldedaten korrekt sind, wechsle zu HomeScreen
-                HomeScreen homeScreen = new HomeScreen(stage);
+                HomeScreen homeScreen = new HomeScreen(stage, authenticatedEmployee);
                 homeScreen.show();
             } else {
                 // Zeige eine Fehlermeldung für eine falsche Anmeldung

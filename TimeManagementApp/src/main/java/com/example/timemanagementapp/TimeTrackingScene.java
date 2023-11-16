@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import org.bson.Document;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.timemanagementapp.MongoConnection.addStempelzeitEintrag;
 
 public class TimeTrackingScene {
     private Stage stage;
@@ -23,12 +26,15 @@ public class TimeTrackingScene {
     private boolean timerRunning;
     private Label timeLabel; // Label für die Zeiterfassung
 
-    public TimeTrackingScene(Stage stage, HomeScreen homeScreen) {
+    private Document authenticatedEmployee;
+
+    public TimeTrackingScene(Stage stage, HomeScreen homeScreen, Document authenticatedEmployee) {
         this.stage = stage;
         this.homeScreen = homeScreen;
         this.startTimes = new ArrayList<>();
         this.timer = new Timer();
         this.timerRunning = false;
+        this.authenticatedEmployee = authenticatedEmployee;
     }
 
     public void show() {
@@ -56,36 +62,41 @@ public class TimeTrackingScene {
             LocalTime startTime = LocalTime.now();
             startTimes.add(startTime);
             timer = new Timer(true);
+            //Einstempelzeit in die DB eintragen
+            addStempelzeitEintrag(authenticatedEmployee.getInteger("EmployeeId"), String.valueOf(startTime), "Eintritt");
 
-            // Benachrichtigung nach 1 Minute
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> {
-                        if (timerRunning) {
-                            NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
-                            notificationsScene.showNotification("Es ist Zeit zum Ausstempeln");
-                        }
-                    });
-                }
-            }, 1 * 60 * 1000); // 1 Minute in Millisekunden
+            if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
+                // Benachrichtigung nach 1 Minute
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(() -> {
+                            if (timerRunning) {
+                                NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
+                                notificationsScene.showNotification("Es ist Zeit zum Ausstempeln");
+                            }
+                        });
+                    }
+                }, 1 * 60 * 1000); // 1 Minute in Millisekunden
+            }
+            if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
+                // Benachrichtigung nach 2 Minuten
+                timer.schedule(new TimerTask() {
+                    @Override
 
-            // Benachrichtigung nach 2 Minuten
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> {
-                        if (timerRunning) {
-                            NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
-                            notificationsScene.showNotification("Stempeln Sie bitte aus, dies ist Ihre erste und letzte Warnung!");
-                        }
-                    });
-                }
-            }, 2 * 60 * 1000); // 2 Minuten in Millisekunden
-
-            homeScreen.updateLastStampedTime("Eingestempelt um " + formatTime(startTime));
-            timeLabel.setText(homeScreen.getLastStampedTime());
-            timerRunning = true;
+                    public void run() {
+                        Platform.runLater(() -> {
+                            if (timerRunning) {
+                                NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
+                                notificationsScene.showNotification("Stempeln Sie bitte aus, dies ist Ihre erste und letzte Warnung!");
+                            }
+                        });
+                    }
+                }, 2 * 60 * 1000); // 2 Minuten in Millisekunden
+            }
+                homeScreen.updateLastStampedTime("Eingestempelt um " + formatTime(startTime));
+                timeLabel.setText(homeScreen.getLastStampedTime());
+                timerRunning = true;
         }
     }
 
@@ -93,6 +104,8 @@ public class TimeTrackingScene {
         if (timerRunning) {
             endTime = LocalTime.now();
             timer.cancel();
+
+            addStempelzeitEintrag(authenticatedEmployee.getInteger("EmployeeId"), String.valueOf(endTime),"Austritt");
 
             // Berechne Gesamtzeit
             Duration totalDuration = Duration.between(startTimes.get(startTimes.size() - 1), endTime);
