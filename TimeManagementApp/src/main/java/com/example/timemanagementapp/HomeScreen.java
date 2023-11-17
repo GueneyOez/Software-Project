@@ -87,7 +87,11 @@ public class HomeScreen {
     }
 
     private void showTimeTracking() {
-        timeTrackingScene = new TimeTrackingScene(stage, this, authenticatedEmployee);
+        // Überprüfen, ob bereits eine Instanz von TimeTrackingScene existiert
+        if (timeTrackingScene == null) {
+            timeTrackingScene = new TimeTrackingScene(stage, this, authenticatedEmployee);
+        }
+
         timeTrackingScene.show();
     }
 
