@@ -1,5 +1,6 @@
 package com.example.timemanagementapp;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.control.Label;
@@ -51,6 +52,18 @@ public class HomeScreen {
 
         h_layout.getChildren().addAll(logoutButton);
 
+        // Setze Margin für die Buttons
+        Insets buttonInsets = new Insets(5);
+        HBox.setMargin(calendarButton, buttonInsets);
+        HBox.setMargin(notificationsButton, buttonInsets);
+        HBox.setMargin(timeTrackingButton, buttonInsets);
+        HBox.setMargin(addEmployeeButton, buttonInsets);
+        HBox.setMargin(logoutButton, buttonInsets);
+
+        // Setze Padding für die HBox, um den Abstand zum Fensterrand zu vergrößern
+        Insets hBoxLayoutInsets = new Insets(20); // Hier den Wert anpassen
+        h_layout.setPadding(hBoxLayoutInsets);
+
         VBox v_layout = new VBox(10);
         v_layout.getChildren().addAll(welcomeLabel);
         v_layout.setAlignment(Pos.CENTER);
@@ -59,7 +72,7 @@ public class HomeScreen {
         root.setTop(h_layout); // Setze HBox oben
         root.setCenter(v_layout); // Setze VBox in der Mitte
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 600, 440);
         stage.setScene(scene);
         stage.setTitle("Home Screen");
         stage.show();

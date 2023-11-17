@@ -69,7 +69,7 @@ public class LoginScreen {
 
         cancelButton.setOnAction(e -> stage.close()); // Schließe die Anwendung beim Klicken auf "Cancel"
 
-        Scene scene = new Scene(gridPane, 300, 200);
+        Scene scene = new Scene(gridPane, 600, 440);
         stage.setScene(scene);
         stage.setTitle("Login");
         stage.show();

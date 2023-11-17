@@ -52,7 +52,7 @@ public class CalendarScene {
         content.getChildren().addAll(header, gridPane);
         root.getChildren().add(content);
 
-        Scene scene = new Scene(root, 500, 400);
+        Scene scene = new Scene(root, 600, 440);
         primaryStage.setScene(scene);
 
         root.setPadding(new Insets(0, 20, 0, 20));
@@ -68,6 +68,7 @@ public class CalendarScene {
         HBox header = new HBox(10);
         header.setAlignment(Pos.CENTER);
 
+        Button backButton = new Button("Zurück");
         Button prevMonthButton = new Button("<<");
         Button nextMonthButton = new Button(">>");
         Label monthLabel = new Label(currentMonth.toString() + " " + currentYear);
@@ -90,7 +91,9 @@ public class CalendarScene {
             updateCalendar();
         });
 
-        header.getChildren().addAll(prevMonthButton, monthLabel, remainingDaysLabel, nextMonthButton);
+        backButton.setOnAction(e -> homeScreen.goBack());
+
+        header.getChildren().addAll(backButton, prevMonthButton, monthLabel, remainingDaysLabel, nextMonthButton);
 
         HBox.setHgrow(monthLabel, Priority.ALWAYS);
 
@@ -140,7 +143,7 @@ public class CalendarScene {
 
     private Button createDayButton(int dayOfMonth, LocalDate date) {
         Button dayButton = new Button(Integer.toString(dayOfMonth));
-        dayButton.setMinSize(60, 40);
+        dayButton.setMinSize(70, 50);
 
         // Prüfe, ob der Tag ein Wochenendtag ist (Samstag oder Sonntag)
         if (isWeekend(date)) {
@@ -155,14 +158,18 @@ public class CalendarScene {
             });
         }
 
-        // Ändere die Farbe des Buttons, wenn ein Ereignis eingetragen wurde
+        // Ändere die Farbe des Buttons je nach Eintragstyp
         if (entries.containsKey(date)) {
-            dayButton.setStyle("-fx-background-color: lightblue;");
+            Entry entry = entries.get(date);
+            if (entry.getType() == EntryType.Urlaub) {
+                dayButton.setStyle("-fx-background-color: lightblue;");
+            } else if (entry.getType() == EntryType.Krankheit) {
+                dayButton.setStyle("-fx-background-color: lightcoral;");
+            }
         }
 
         return dayButton;
     }
-
 
     private void handleNewEntry(LocalDate date) {
         Dialog<EntryType> dialog = new ChoiceDialog<>(EntryType.Urlaub, EntryType.Urlaub, EntryType.Krankheit);
@@ -187,7 +194,6 @@ public class CalendarScene {
             updateCalendar();
         });
     }
-
 
     private void handleExistingEntry(LocalDate date) {
         Entry entry = entries.get(date);

@@ -62,7 +62,7 @@ public class AddEmployeeScene {
         gridPane.add(addButton, 0, 3);
         gridPane.add(backButton, 1, 3);
 
-        Scene scene = new Scene(gridPane, 400, 200);
+        Scene scene = new Scene(gridPane, 600, 440);
         stage.setScene(scene);
         stage.setTitle("Mitarbeiter hinzufügen");
         stage.show();

@@ -26,7 +26,7 @@ public class NotificationsScene {
 
         StackPane.setAlignment(backButton, javafx.geometry.Pos.TOP_LEFT); // Button oben links
 
-        Scene scene = new Scene(layout, 400, 300);
+        Scene scene = new Scene(layout, 600, 440);
         stage.setScene(scene);
         stage.setTitle("Benachrichtigungen");
         stage.show();

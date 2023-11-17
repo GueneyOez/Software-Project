@@ -1,6 +1,7 @@
 package com.example.timemanagementapp;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -38,23 +39,27 @@ public class TimeTrackingScene {
     }
 
     public void show() {
-        Label label = new Label("Zeiterfassung-Szene");
-        Button backButton = new Button("Go Back");
-        Button startButton = new Button("Einstempeln");
-        Button stopButton = new Button("Ausstempeln");
-        timeLabel = new Label(homeScreen.getLastStampedTime()); // Setzen Sie den letzten Stempelzeitpunkt
+            Label label = new Label("Zeiterfassung-Szene");
+            Button backButton = new Button("Zurück");
+            Button startButton = new Button("Einstempeln");
+            Button stopButton = new Button("Ausstempeln");
+            timeLabel = new Label(homeScreen.getLastStampedTime()); // Setzen Sie den letzten Stempelzeitpunkt
 
-        startButton.setOnAction(e -> startTracking());
-        stopButton.setOnAction(e -> stopTracking());
-        backButton.setOnAction(e -> homeScreen.goBack());
+            startButton.setOnAction(e -> startTracking());
+            stopButton.setOnAction(e -> stopTracking());
+            backButton.setOnAction(e -> homeScreen.goBack());
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(backButton, label, startButton, stopButton, timeLabel);
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(backButton, label, startButton, stopButton, timeLabel);
 
-        Scene scene = new Scene(layout, 400, 300);
-        stage.setScene(scene);
-        stage.setTitle("Zeiterfassung");
-        stage.show();
+            // Setze Padding für die VBox, um den Abstand zum Fensterrand zu vergrößern
+            Insets vboxInsets = new Insets(20); // Hier den Wert anpassen
+            layout.setPadding(vboxInsets);
+
+            Scene scene = new Scene(layout, 600, 440);
+            stage.setScene(scene);
+            stage.setTitle("Zeiterfassung");
+            stage.show();
     }
 
     private void startTracking() {
@@ -77,7 +82,7 @@ public class TimeTrackingScene {
                             }
                         });
                     }
-                }, 1 * 60 * 1000); // 1 Minute in Millisekunden
+                }, 60 * 1000); // 1 Minute in Millisekunden
             }
             if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
                 // Benachrichtigung nach 2 Minuten
@@ -111,8 +116,8 @@ public class TimeTrackingScene {
             Duration totalDuration = Duration.between(startTimes.get(startTimes.size() - 1), endTime);
             timeLabel.setText(
                     "Eingestempelt um: " + formatTime(startTimes.get(startTimes.size() - 1)) +
-                            "\nAusgestempelt um: " + formatTime(endTime) +
-                            "\nGearbeitete Stunden: " + formatDuration(totalDuration));
+                            "\n\nAusgestempelt um: " + formatTime(endTime) +
+                            "\n\nGearbeitete Stunden: " + formatDuration(totalDuration));
             homeScreen.updateLastStampedTime(""); // Zurücksetzen des Stempelzeitpunkts
             timerRunning = false;
         }
