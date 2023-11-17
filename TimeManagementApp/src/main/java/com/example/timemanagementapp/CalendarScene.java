@@ -4,10 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.time.DayOfWeek;
@@ -40,6 +37,7 @@ public class CalendarScene {
     }
 
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("Kalender");
 
         root = new VBox(10);
@@ -66,6 +64,7 @@ public class CalendarScene {
     }
 
     private HBox createHeader() {
+
         HBox header = new HBox(10);
         header.setAlignment(Pos.CENTER);
 
@@ -138,6 +137,7 @@ public class CalendarScene {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
     }
+
     private Button createDayButton(int dayOfMonth, LocalDate date) {
         Button dayButton = new Button(Integer.toString(dayOfMonth));
         dayButton.setMinSize(60, 40);
@@ -220,7 +220,6 @@ public class CalendarScene {
         }
     }
 
-
     private DayOfWeek getFirstDayOfMonth(Month month, int year) {
         LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
         return firstDayOfMonth.getDayOfWeek();
@@ -255,7 +254,6 @@ public class CalendarScene {
         dialog.showAndWait();
     }
 
-
     private record Entry(EntryType type) {
         public String getInfo() {
             return switch (type) {
@@ -268,7 +266,6 @@ public class CalendarScene {
             return type;
         }
     }
-
 
     private enum EntryType {
         Urlaub,

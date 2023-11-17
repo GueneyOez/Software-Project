@@ -94,9 +94,9 @@ public class TimeTrackingScene {
                     }
                 }, 2 * 60 * 1000); // 2 Minuten in Millisekunden
             }
-                homeScreen.updateLastStampedTime("Eingestempelt um " + formatTime(startTime));
-                timeLabel.setText(homeScreen.getLastStampedTime());
-                timerRunning = true;
+            homeScreen.updateLastStampedTime("Eingestempelt um " + formatTime(startTime));
+            timeLabel.setText(homeScreen.getLastStampedTime());
+            timerRunning = true;
         }
     }
 
@@ -105,7 +105,7 @@ public class TimeTrackingScene {
             endTime = LocalTime.now();
             timer.cancel();
 
-            addStempelzeitEintrag(authenticatedEmployee.getInteger("EmployeeId"), String.valueOf(endTime),"Austritt");
+            addStempelzeitEintrag(authenticatedEmployee.getInteger("EmployeeId"), String.valueOf(endTime), "Austritt");
 
             // Berechne Gesamtzeit
             Duration totalDuration = Duration.between(startTimes.get(startTimes.size() - 1), endTime);

@@ -40,7 +40,7 @@ public class HomeScreen {
         addEmployeeButton.setOnAction(e -> showAddEmployee());
         logoutButton.setOnAction(e -> showLogin());
 
-        Label welcomeLabel = new Label("Welcome, " + authenticatedEmployee.getString("Name") + "!");
+        Label welcomeLabel = new Label("Welcome, " + authenticatedEmployee.getString("Name") + "!\n Rolle: " + authenticatedEmployee.getString("Rolle"));
 
         HBox h_layout = new HBox(10);
         h_layout.getChildren().addAll(calendarButton, notificationsButton, timeTrackingButton);
