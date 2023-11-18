@@ -8,4 +8,10 @@ module com.example.timemanagementapp {
 
     opens com.example.timemanagementapp to javafx.fxml;
     exports com.example.timemanagementapp;
+
+    exports controller;
+    opens controller to javafx.fxml;
 }
+
+
+
