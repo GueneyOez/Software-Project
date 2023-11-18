@@ -61,7 +61,7 @@ public class TimeTrackingScene {
             Insets vboxInsets = new Insets(20); // Hier den Wert anpassen
             layout.setPadding(vboxInsets);
 
-            layout.setStyle("-fx-background-color: #808080");
+            layout.setStyle("-fx-background-color: #bfbfbf");
 
             Scene scene = new Scene(layout, 600, 440);
             stage.setScene(scene);

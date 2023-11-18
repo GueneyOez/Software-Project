@@ -67,7 +67,7 @@ public class AddEmployeeScene {
         gridPane.add(backButton, 1, 3);
 
         Scene scene = new Scene(gridPane, 600, 440);
-        scene.getRoot().setStyle("-fx-background-color: #808080;");
+        scene.getRoot().setStyle("-fx-background-color: #bfbfbf;");
 
         stage.setScene(scene);
         stage.setTitle("Mitarbeiter hinzufügen");

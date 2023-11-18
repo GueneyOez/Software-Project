@@ -46,7 +46,7 @@ public class CalendarScene {
         VBox content = new VBox(10);
         content.setAlignment(Pos.CENTER);
 
-        root.setStyle("-fx-background-color: #808080;");
+        root.setStyle("-fx-background-color: #bfbfbf;");
 
         HBox header = createHeader();
         gridPane = createCalendarGrid();

@@ -72,7 +72,7 @@ public class HomeScreen {
         root.setTop(h_layout); // Setze HBox oben
         root.setCenter(v_layout); // Setze VBox in der Mitte
 
-        root.setStyle("-fx-background-color: #808080;");
+        root.setStyle("-fx-background-color: #bfbfbf;");
 
         calendarButton.setStyle("-fx-background-color: #ffffff;");
         notificationsButton.setStyle("-fx-background-color: #ffffff;");
