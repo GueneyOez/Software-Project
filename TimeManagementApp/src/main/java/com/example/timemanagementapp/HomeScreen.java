@@ -72,6 +72,14 @@ public class HomeScreen {
         root.setTop(h_layout); // Setze HBox oben
         root.setCenter(v_layout); // Setze VBox in der Mitte
 
+        root.setStyle("-fx-background-color: #808080;");
+
+        calendarButton.setStyle("-fx-background-color: #ffffff;");
+        notificationsButton.setStyle("-fx-background-color: #ffffff;");
+        timeTrackingButton.setStyle("-fx-background-color: #ffffff;");
+        addEmployeeButton.setStyle("-fx-background-color: #ffffff;");
+        logoutButton.setStyle("-fx-background-color: #ffffff;");
+
         Scene scene = new Scene(root, 600, 440);
         stage.setScene(scene);
         stage.setTitle("Home Screen");

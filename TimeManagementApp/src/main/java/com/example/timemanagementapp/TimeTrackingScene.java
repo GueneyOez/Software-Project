@@ -45,6 +45,11 @@ public class TimeTrackingScene {
             Button stopButton = new Button("Ausstempeln");
             timeLabel = new Label(homeScreen.getLastStampedTime()); // Setzen Sie den letzten Stempelzeitpunkt
 
+            // Setze die Hintergrundfarbe der Buttons auf Weiß
+            backButton.setStyle("-fx-background-color: white;");
+            startButton.setStyle("-fx-background-color: white;");
+            stopButton.setStyle("-fx-background-color: white;");
+
             startButton.setOnAction(e -> startTracking());
             stopButton.setOnAction(e -> stopTracking());
             backButton.setOnAction(e -> homeScreen.goBack());
@@ -55,6 +60,8 @@ public class TimeTrackingScene {
             // Setze Padding für die VBox, um den Abstand zum Fensterrand zu vergrößern
             Insets vboxInsets = new Insets(20); // Hier den Wert anpassen
             layout.setPadding(vboxInsets);
+
+            layout.setStyle("-fx-background-color: #808080");
 
             Scene scene = new Scene(layout, 600, 440);
             stage.setScene(scene);

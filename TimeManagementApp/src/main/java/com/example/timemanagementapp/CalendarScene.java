@@ -46,6 +46,8 @@ public class CalendarScene {
         VBox content = new VBox(10);
         content.setAlignment(Pos.CENTER);
 
+        root.setStyle("-fx-background-color: #808080;");
+
         HBox header = createHeader();
         gridPane = createCalendarGrid();
 
@@ -71,6 +73,11 @@ public class CalendarScene {
         Button backButton = new Button("Zurück");
         Button prevMonthButton = new Button("<<");
         Button nextMonthButton = new Button(">>");
+
+        backButton.setStyle("-fx-background-color: white;");
+        prevMonthButton.setStyle("-fx-background-color: white;");
+        nextMonthButton.setStyle("-fx-background-color: white;");
+
         Label monthLabel = new Label(currentMonth.toString() + " " + currentYear);
         Label remainingDaysLabel = new Label("Offene Urlaubstage: " + remainingVacationDays +
                 " | Offene Krankheitstage: " + remainingSicknessDays);
@@ -144,6 +151,7 @@ public class CalendarScene {
     private Button createDayButton(int dayOfMonth, LocalDate date) {
         Button dayButton = new Button(Integer.toString(dayOfMonth));
         dayButton.setMinSize(70, 50);
+        dayButton.setStyle("-fx-background-color: white;");
 
         // Prüfe, ob der Tag ein Wochenendtag ist (Samstag oder Sonntag)
         if (isWeekend(date)) {

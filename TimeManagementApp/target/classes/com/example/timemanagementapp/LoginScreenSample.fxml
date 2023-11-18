@@ -12,7 +12,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <left>
-      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #4f4f4f;"
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #808080;"
                   BorderPane.alignment="CENTER">
          <Text fill="WHITE" layoutX="24.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SWT"
                textAlignment="CENTER" wrappingWidth="263.51171875">
@@ -33,26 +33,26 @@
       <AnchorPane prefHeight="400.0" prefWidth="340.0" BorderPane.alignment="CENTER">
          <TextField fx:id="usernameField" layoutX="49.0" layoutY="163.0" prefHeight="25.0" prefWidth="202.0"
                     promptText="Username"
-                    style="-fx-background-color: transparent; -fx-border-color: #4f4f4f; -fx-border-width: 0px 0px 2px 0px;"/>
+                    style="-fx-background-color: transparent; -fx-border-color: #808080; -fx-border-width: 0px 0px 2px 0px;"/>
 
          <PasswordField fx:id="passwordField" layoutX="49.0" layoutY="202.0" prefHeight="25.0" prefWidth="202.0"
                         promptText="Password"
-                        style="-fx-background-color: transparent; -fx-border-color: #4f4f4f; -fx-border-width: 0px 0px 2px 0px;"/>
+                        style="-fx-background-color: transparent; -fx-border-color: #808080; -fx-border-width: 0px 0px 2px 0px;"/>
          <Button fx:id="loginButton" layoutX="60.0" layoutY="256.0" mnemonicParsing="false" onAction="#login"
-                 prefHeight="32.0" prefWidth="76.0" style="-fx-background-color: #4f4f4f; -fx-background-radius: 0px;"
+                 prefHeight="32.0" prefWidth="76.0" style="-fx-background-color: #808080; -fx-background-radius: 0px;"
                  text="Login" textFill="WHITE">
             <cursor>
                <Cursor fx:constant="HAND"/>
             </cursor>
          </Button>
-         <Text fill="#4f4f4f" layoutX="81.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login"
+         <Text fill="#808080" layoutX="81.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login"
                wrappingWidth="137.24869537353516">
             <font>
                <Font name="Wingdings 3" size="27.0"/>
             </font>
          </Text>
          <Button fx:id="cancelButton" layoutX="167.0" layoutY="256.0" mnemonicParsing="false" onAction="#cancel"
-                 prefHeight="32.0" prefWidth="76.0" style="-fx-background-color: #4f4f4f; -fx-background-radius: 0px;"
+                 prefHeight="32.0" prefWidth="76.0" style="-fx-background-color: #808080; -fx-background-radius: 0px;"
                  text="Cancel" textFill="WHITE">
             <cursor>
                <Cursor fx:constant="HAND"/>

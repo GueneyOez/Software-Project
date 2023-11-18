@@ -52,6 +52,10 @@ public class AddEmployeeScene {
         Button backButton = new Button("Zurück");
         backButton.setOnAction(e -> homeScreen.goBack());
 
+        backButton.setStyle("-fx-background-color: #ffffff");
+        addButton.setStyle("-fx-background-color: #ffffff");
+        roleComboBox.setStyle("-fx-background-color: #ffffff");
+
         // Hinzufügen von Elementen zum GridPane
         gridPane.add(roleLabel, 0, 0);
         gridPane.add(roleComboBox, 1, 0);
@@ -63,6 +67,8 @@ public class AddEmployeeScene {
         gridPane.add(backButton, 1, 3);
 
         Scene scene = new Scene(gridPane, 600, 440);
+        scene.getRoot().setStyle("-fx-background-color: #808080;");
+
         stage.setScene(scene);
         stage.setTitle("Mitarbeiter hinzufügen");
         stage.show();
