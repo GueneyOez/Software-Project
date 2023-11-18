@@ -77,35 +77,38 @@ public class TimeTrackingScene {
             //Einstempelzeit in die DB eintragen
             addStempelzeitEintrag(authenticatedEmployee.getInteger("EmployeeId"), String.valueOf(startTime), "Eintritt");
 
-            if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
                 // Benachrichtigung nach 1 Minute
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         Platform.runLater(() -> {
-                            if (timerRunning) {
-                                NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
-                                notificationsScene.showNotification("Es ist Zeit zum Ausstempeln");
+                            if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
+                                if (timerRunning) {
+                                    NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
+                                    notificationsScene.showNotification("Es ist Zeit zum Ausstempeln");
+                                }
                             }
                         });
                     }
                 }, 60 * 1000); // 1 Minute in Millisekunden
-            }
-            if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
+
+
                 // Benachrichtigung nach 2 Minuten
                 timer.schedule(new TimerTask() {
                     @Override
 
                     public void run() {
                         Platform.runLater(() -> {
-                            if (timerRunning) {
-                                NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
-                                notificationsScene.showNotification("Stempeln Sie bitte aus, dies ist Ihre erste und letzte Warnung!");
+                            if (authenticatedEmployee.getString("Rolle").equals("Mitarbeiter")) {
+                                if (timerRunning) {
+                                    NotificationsScene notificationsScene = new NotificationsScene(stage, homeScreen);
+                                    notificationsScene.showNotification("Stempeln Sie bitte aus, dies ist Ihre erste und letzte Warnung!");
+                                }
                             }
                         });
                     }
                 }, 2 * 60 * 1000); // 2 Minuten in Millisekunden
-            }
+
             homeScreen.updateLastStampedTime("Eingestempelt um " + formatTime(startTime));
             timeLabel.setText(homeScreen.getLastStampedTime());
             timerRunning = true;
