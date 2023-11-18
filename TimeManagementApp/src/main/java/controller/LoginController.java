@@ -4,6 +4,7 @@ import com.example.timemanagementapp.HomeScreen;
 import com.example.timemanagementapp.LoginScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,6 +26,10 @@ public class LoginController {
     private PasswordField passwordField;
 
     private Stage stage;
+
+    @FXML
+    private Label loginMessageLabel;
+
     private List<Document> employees;
 
     public void setStage(Stage stage) {
@@ -47,6 +52,7 @@ public class LoginController {
             homeScreen.show();
         } else {
             // Zeige eine Fehlermeldung für eine falsche Anmeldung
+            loginMessageLabel.setText("Invalid username or password!");
             System.out.println("Invalid username or password!");
         }
     }
