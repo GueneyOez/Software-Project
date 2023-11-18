@@ -42,10 +42,10 @@
                  prefHeight="32.0" prefWidth="76.0" style="-fx-background-color: #4f4f4f; -fx-background-radius: 0px;"
                  text="Login" textFill="WHITE">
             <cursor>
-               <Cursor fx:constant="DEFAULT"/>
+               <Cursor fx:constant="HAND"/>
             </cursor>
          </Button>
-         <Text fill="GREY" layoutX="81.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login"
+         <Text fill="#4f4f4f" layoutX="81.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login"
                wrappingWidth="137.24869537353516">
             <font>
                <Font name="Wingdings 3" size="27.0"/>
@@ -55,7 +55,7 @@
                  prefHeight="32.0" prefWidth="76.0" style="-fx-background-color: #4f4f4f; -fx-background-radius: 0px;"
                  text="Cancel" textFill="WHITE">
             <cursor>
-               <Cursor fx:constant="DEFAULT"/>
+               <Cursor fx:constant="HAND"/>
             </cursor>
          </Button>
       </AnchorPane>
